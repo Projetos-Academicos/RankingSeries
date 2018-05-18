@@ -1,13 +1,26 @@
 import {createStackNavigator} from 'react-navigation';
-import {TelaLogin} from './src/telas';
+import {
+  TelaLogin,
+  TelaInicial
+} from './src/telas';
 
 
 export default createStackNavigator ({
 
-  "Login" :{
+  "Login" : {
     screen: TelaLogin,
     navigationOptions: {
       title: "Entrar",
+    },
+    headerTitleStyle:{
+      textAlign: "center",
+      flexGrow: 1,
+    }
+  },
+  "Inicio": {
+    screen: TelaInicial,
+    navigationOptions: {
+      title: "Ranking Series"
     }
   },
 },{
@@ -19,9 +32,7 @@ export default createStackNavigator ({
     },
     headerTitleStyle:{
       fontSize: 30,
-      color: "#fff",
-      textAlign: "center",
-      flexGrow: 1,
+      color: "#fff",      
     },
   }
 });
