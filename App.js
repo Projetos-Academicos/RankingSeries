@@ -11,16 +11,16 @@ export default createStackNavigator ({
     screen: TelaLogin,
     navigationOptions: {
       title: "Entrar",
-    },
-    headerTitleStyle:{
-      textAlign: "center",
-      flexGrow: 1,
-    }
+    },    
   },
   "Inicio": {
     screen: TelaInicial,
     navigationOptions: {
-      title: "Ranking Series"
+      title: "Ranking Series",
+      headerTitleStyle:{
+        fontSize: 30,
+        color: "#fff",
+      },
     }
   },
 },{
@@ -32,7 +32,9 @@ export default createStackNavigator ({
     },
     headerTitleStyle:{
       fontSize: 30,
-      color: "#fff",      
+      color: "#fff", 
+      textAlign: "center",
+      flexGrow: 1,     
     },
   }
 });

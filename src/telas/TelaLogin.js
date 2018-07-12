@@ -82,7 +82,7 @@ export default class TelaLogin extends React.Component {
                         { cancelable: false} //faz com que o modal não se feche clicando em qualquer lugar da tela
                     )
                 }else{
-                    this.setState({  mensagemErro: this.mensagemErroCode(erro.code)});                            
+                    this.setState({  mensagemErro: this.mensagemErroCodeLogin(erro.code)});                            
                     //this.setState({ mensagem: erro.message}); mensagem de erro em inglês    
                 }
 
@@ -100,10 +100,14 @@ export default class TelaLogin extends React.Component {
         );
     }
     //mensagens de erro
-    mensagemErroCode(erroCode) {      
+    mensagemErroCodeLogin(erroCode) {      
        switch(erroCode){
             case "auth/wrong-password" :
-                return Alert.alert("Erro","Senha Incorreta");
+                return Alert.alert("Erro","Senha Incorreta.");
+            case "auth/invalid-email":
+                return Alert.alert("Erro","Email Inválido.");
+            case "auth/user-disabled":
+                return Alert.alert("Erro", "Email Informado Desativado.");           
             // case "auth/user-not-found":
             //     return Alert.alert("Erro","Usuário não encontrado");
             default:
