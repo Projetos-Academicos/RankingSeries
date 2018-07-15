@@ -1,9 +1,18 @@
 import React from 'react';
-import {Text, View } from 'react-native';
+import {Text, View, FlatList } from 'react-native';
+import series from '../../series.json';
+import SerieCard from '../componentes/SerieCard';
 
-const TelaInicial = (props) =>(
+const TelaInicial = props =>(
     <View>
-        <Text>Testando Pagina</Text>
+        <FlatList 
+            data={series}
+            renderItem={({ item }) => (
+                <SerieCard serie={item}/>
+            )}
+            keyExtractor = {item => item.id.toString()} // essa keyExtractor espera uma key do tipo String
+            numColumns={2}   
+        />
     </View>
 );
 

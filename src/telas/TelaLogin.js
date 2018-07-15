@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import {LinhaFormulario} from './../componentes';
 import firebase from 'firebase';
+import {login} from '../actions';
+import {connect} from 'react-redux';
 
 
-export default class TelaLogin extends React.Component {
+class TelaLogin extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,44 +52,19 @@ export default class TelaLogin extends React.Component {
         this.setState({carregando: true,  mensagemErro: ""});
         const {email, senha} = this.state;        
        
-        // const sucessoAoLogar = usuario => {
-        //     this.setState({ mensagemErro: "Sucesso!"})}
-
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, senha)
-            .then(usuario =>{
-                Alert.alert("Bem-Vindo!", "Login efetuado com sucesso !");
-                this.props.navigation.navigate("Inicio");
+        this.props.login({email, senha})
+            .then(usuario => {
+                if(usuario){
+                    Alert.alert("Bem-Vindo!", "Login efetuado com sucesso !");
+                    //this.props.navigation.navigate("Inicio");
+                    this.props.navigation.replace("Inicio"); // retira a seta de navegação 
+                } else{
+                    this.setState({carregando: false,  mensagemErro: ""});
+                }                
             })
-            .catch(erro => {
-                if(erro.code == "auth/user-not-found"){
-                    Alert.alert(
-                        "Usuário não encontrado",
-                        "Deseja criar um novo cadastro?",
-                        [{
-                            text: "Não",
-                            onPress: () => {},
-                            style: "cancel" //IOS
-                        }, {
-                            text: "Sim",
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(email, senha)
-                                    .then(/*Passar parametro ao criar uma nova conta*/)
-                                    .catch(/*Passar parametro quando der erro ao criar uma nova conta*/)
-                            },
-                        }],
-                        { cancelable: false} //faz com que o modal não se feche clicando em qualquer lugar da tela
-                    )
-                }else{
-                    this.setState({  mensagemErro: this.mensagemErroCodeLogin(erro.code)});                            
-                    //this.setState({ mensagem: erro.message}); mensagem de erro em inglês    
-                }
-
+            .catch( erro => {
+                this.setState({carregando: false,  mensagemErro: this.mensagemErroCodeLogin(erro.code)});
             })
-            .then(() =>  this.setState({carregando: false}));            ;
     }
     
     //mostra o botão de login ou o loading apos o click no botão
@@ -173,3 +150,8 @@ const styles = StyleSheet.create({
        marginTop: 5,
     }
 });
+
+
+
+
+export default connect(null, { login } )(TelaLogin);

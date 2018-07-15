@@ -6,13 +6,6 @@ import {
 
 
 export default createStackNavigator ({
-
-  "Login" : {
-    screen: TelaLogin,
-    navigationOptions: {
-      title: "Entrar",
-    },    
-  },
   "Inicio": {
     screen: TelaInicial,
     navigationOptions: {
@@ -23,6 +16,13 @@ export default createStackNavigator ({
       },
     }
   },
+  "Login" : {
+    screen: TelaLogin,
+    navigationOptions: {
+      title: "Entrar",
+    },    
+  },
+  
 },{
   navigationOptions: {   
     headerTintColor: "#fff",
